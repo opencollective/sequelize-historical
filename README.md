@@ -1,15 +1,12 @@
-Historical tables for Sequelize
-===============================
+# Historical tables for Sequelize
 
 Warning: this is a fork of [sequelize-temporal](https://github.com/bonaval/sequelize-temporal) that adds support for Sequelize 5.
 
 [![Build Status](https://travis-ci.org/opencollective/sequelize-historical.svg?branch=master)](https://travis-ci.org/opencollective/sequelize-historical) [![Dependency Status](https://david-dm.org/opencollective/sequelize-historical.svg)](https://david-dm.org/opencollective/sequelize-historical) [![NPM version](https://img.shields.io/npm/v/sequelize-historical.svg)](https://www.npmjs.com/package/sequelize-historical) [![Greenkeeper badge](https://badges.greenkeeper.io/opencollective/sequelize-historical.svg)](https://greenkeeper.io/)
 
+## What is it?
 
-What is it?
------------
-
-Historical tables maintain __historical versions__ of data. Modifying operations (UPDATE, DELETE) on these tables don't cause permanent changes to entries, but create new versions of them. Hence this might be used to:
+Historical tables maintain **historical versions** of data. Modifying operations (UPDATE, DELETE) on these tables don't cause permanent changes to entries, but create new versions of them. Hence this might be used to:
 
 - log changes (security/auditing)
 - undo functionalities
@@ -22,15 +19,13 @@ The normal singular/plural naming scheme in Sequelize is used:
 - model name: `modelName + History`
 - table name: `modelName + Histories`
 
-Installation
-------------
+## Installation
 
 ```
 npm install sequelize-historical
 ```
 
-How to use
-----------
+## How to use
 
 ### 1) Import `sequelize-historical`
 
@@ -48,7 +43,7 @@ var sequelize = new Sequelize('', '', '', {
 });
 ```
 
-### 2) Add the *historical* feature to your models
+### 2) Add the _historical_ feature to your models
 
 ```
 var User = Historical(sequelize.define('User'), sequelize);
@@ -62,8 +57,7 @@ var User = sequelize.define('User', {.types.}, {.options.}); // Sequelize Docu
 Historical(User, sequelize);
 ```
 
-Options
--------
+## Options
 
 The default syntax for `Historical` is:
 
@@ -84,8 +78,7 @@ whereas the options are listed here (with default value).
   full: false
 ```
 
-Details
---------
+## Details
 
 @See: https://wiki.postgresql.org/wiki/SQL2011Temporal
 
@@ -101,8 +94,7 @@ Triggers for storing old versions of rows to history table are inspired by refer
 
 If you only use Postgres, you might want to have a look at the [Temporal Table](https://github.com/arkhipov/temporal_tables) extension.
 
-License
--------
+## License
 
 The MIT License (MIT)
 
