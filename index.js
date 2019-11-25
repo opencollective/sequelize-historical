@@ -35,7 +35,7 @@ var Temporal = function(model, sequelize, temporalOptions){
       throw new Error('Invalid baseNameSource value.  Please refer to documentation for set of valid sources.')
   }
 
-  var historyName = baseName + temporalOptions.suffix;
+  var historyName = baseName + temporalOptions.modelSuffix;
   var historyOwnAttrs = {
     hid: {
       type:          Sequelize.BIGINT,
