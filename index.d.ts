@@ -1,4 +1,4 @@
-declare module 'sequelize-temporal' { 
+declare module 'sequelize-historical' { 
 	type BaseNameSource = 'MODEL' | 'TABLE' | 'OPTIONS';
 	
 	interface Options { 
