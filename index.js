@@ -4,7 +4,10 @@ var temporalDefaultOptions = {
   // runs the insert within the sequelize hook chain, disable
   // for increased performance
   blocking: true,
-  full: false
+  full: false,
+  modelSuffix: 'History',
+  tableSuffix: 'Histories',
+  baseNameSource: 'MODEL'
 };
 
 var excludeAttributes = function(obj, attrsToExclude){
@@ -17,10 +20,22 @@ var Temporal = function(model, sequelize, temporalOptions){
 
   var Sequelize = sequelize.Sequelize;
 
-  var historyName = model.name + 'History';
-  //var historyName = model.getTableName() + 'History';
-  //var historyName = model.options.name.singular + 'History';
+  var baseName;
+  switch(temporalOptions.baseNameSource.toUpperCase()) {
+    case 'MODEL':
+      baseName = model.name;
+      break;
+    case 'TABLE':
+      baseName = model.getTableName();
+      break;
+    case 'OPTIONS':
+      baseName = model.options.name.singular;
+      break;
+    default:
+      throw new Error('Invalid baseNameSource value.  Please refer to documentation for set of valid sources.')
+  }
 
+  var historyName = baseName + temporalOptions.modelSuffix;
   var historyOwnAttrs = {
     hid: {
       type:          Sequelize.BIGINT,
@@ -49,7 +64,9 @@ var Temporal = function(model, sequelize, temporalOptions){
   //historyAttributes = _.assign({}, historyOwnAttrs, historyAttributes);
 
   var historyOwnOptions = {
-    timestamps: false
+    timestamps: false,
+    freezeTableName: true,
+    tableName: baseName + temporalOptions.tableSuffix
   };
   var excludedNames = ["name", "tableName", "sequelize", "uniqueKeys", "hasPrimaryKey", "hooks", "scopes", "instanceMethods", "defaultScope"];
   var modelOptions = excludeAttributes(model.options, excludedNames);

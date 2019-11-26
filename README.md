@@ -17,7 +17,7 @@ Historical tables maintain __historical versions__ of data. Modifying operations
 
 Under the hood a history table with the same structure, but without constraints is created.
 
-The normal singular/plural naming scheme in Sequelize is used:
+By default the normal singular/plural naming scheme in Sequelize is used.  This is configurable by options:
 
 - model name: `modelName + History`
 - table name: `modelName + Histories`
@@ -81,7 +81,21 @@ whereas the options are listed here (with default value).
   (i.e. this includes the latest state.)
    This allows to only query the hostory table to get the full history of an entity.
   */
-  full: false
+  full: false,
+  /* Suffix on generated history model.  Model name: `modelName + modelSuffix`.
+  */
+  modelSuffix: 'History',
+  /* Suffix on generated history table.  Table name: `modelName + tableSuffix`.
+  */
+  tableSuffix: 'Histories',
+  /* Source of the modelName used when generating history model and table.
+  Avalible options:
+   MODEL - Use the name attribute on the supplied model.
+   TABLE - Use the name of the backing table of the supplied model.
+   OPTIONS - Use the singlar name given as an option to the supplied model.
+  */
+  baseNameSource: 'MODEL'
+}
 ```
 
 Details
